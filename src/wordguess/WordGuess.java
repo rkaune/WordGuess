@@ -15,6 +15,7 @@ import java.util.Scanner;
 	public static void main(String[] args) {
 		final String SECRET_WORD = "BRAIN";
 		final String FLAG = "!";
+		int score = 100; // score variable needs to be declared 
 		String wordSoFar = "", updatedWord = "";
 		String letterGuess, wordGuess = "";
 		int numGuesses = 0;
@@ -49,7 +50,8 @@ import java.util.Scanner;
 				
 			/* display guessed letter instead of dash */
 			System.out.println(wordSoFar + "\n");
-		} while (!letterGuess.equals(FLAG) && !wordSoFar.equals(SECRET_WORD));
+			score -= 10; // this is added to decrease the score by 10 for each guess
+		} while (!letterGuess.equals(FLAG) && !wordSoFar.equals(SECRET_WORD) && score > 0); // score>0 added
 		
 		/* finish game and display message and number of guesses */
 		if (letterGuess.equals(FLAG)) {
@@ -59,10 +61,16 @@ import java.util.Scanner;
 		}
 		if (wordGuess.equals(SECRET_WORD) || wordSoFar.equals(SECRET_WORD)) {
 			System.out.println("You won!");		
-		} else {
-			System.out.println("Sorry. You lose.");
+		} 
+                else if (score == 0) {
+			System.out.println("Your score is 0. You lose."); // this else is added for 0 score
 		}
+                else {
+			System.out.println("Sorry. You lose.");  
+		}
+		
 		System.out.println("The secret word is " + SECRET_WORD);
-		System.out.println("You made " + numGuesses + " guesses.");				
+		System.out.println("You made " + numGuesses + " guesses.");
+		System.out.println("Your score is " + score);				
 	}
 }
